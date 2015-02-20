@@ -1,0 +1,52 @@
+﻿<Window x:Class="DcsBiosCOMHandler.AboutWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="About DCS-BIOS COM Handler" Height="400" Width="600" Loaded="WindowLoaded" Icon="/DcsBiosCOMHandler;component/Images/icon_image.png" >
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Canvas Grid.Column="0" Grid.Row="0" Grid.RowSpan="2">
+            <Button Name="ButtonLogo" Click="ButtonLogo_OnClick" Cursor="Hand" >
+                <Image Name="DcsBiosLogo"  Source="/DcsBiosCOMHandler;component/Images/icon_image.png" Tag="False" Width="250" RenderOptions.BitmapScalingMode="Fant" IsEnabled="False" >
+                    <Image.RenderTransform>
+                        <RotateTransform CenterX="125" CenterY="125" />
+                    </Image.RenderTransform>
+                    <Image.Style>
+                        <Style>
+                            <Style.Triggers>
+                                <Trigger Property="Image.IsEnabled" Value="True">
+                                    <Trigger.EnterActions>
+                                        <BeginStoryboard Name="AboutStoryboard">
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.Angle" From="0" To="360" Duration="0:0:1" RepeatBehavior="Forever" />
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.EnterActions>
+                                </Trigger>
+                                <Trigger Property="Image.IsEnabled" Value="False">
+                                    <Trigger.EnterActions>
+                                        <PauseStoryboard BeginStoryboardName="AboutStoryboard">
+                                        </PauseStoryboard>
+                                    </Trigger.EnterActions>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Image.Style>
+                </Image>
+            </Button>
+        </Canvas>
+        <TextBlock Name="TextBlockInformation" Grid.Column="1" Grid.Row="0" Grid.RowSpan="3" HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="" VerticalAlignment="Stretch"/>
+        <WrapPanel Orientation="Vertical" Grid.Column="1" Grid.Row="3" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="10,10,10,10">
+            <Button Name="ButtonOk" Content="Ok" VerticalAlignment="Bottom" Width="70" Click="ButtonOk_OnClick"></Button>
+        </WrapPanel>
+        
+    </Grid>
+</Window>
